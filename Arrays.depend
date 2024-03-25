@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1711047759 source:c:\utn\programacion\arrays\pila.c
+	"pila.h"
+
+1711047716 c:\utn\programacion\arrays\pila.h
+	<stdio.h>
+	<malloc.h>
+
+1711062338 source:c:\utn\programacion\arrays\array.c
+	"array.h"
+
+1711060443 c:\utn\programacion\arrays\array.h
+	<stdio.h>
+	<stdlib.h>
+	"pila.h"
+
+1711062654 source:c:\utn\programacion\arrays\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<locale.h>
+	"pila.h"
+
