@@ -21,3 +21,25 @@
 	<locale.h>
 	"pila.h"
 
+1711383676 source:d:\programacion\c\tp-arreglos\array.c
+	"array.h"
+
+1711383676 d:\programacion\c\tp-arreglos\array.h
+	<stdio.h>
+	<stdlib.h>
+	"pila.h"
+
+1711376329 d:\programacion\c\tp-arreglos\pila.h
+	<stdio.h>
+	<malloc.h>
+
+1711383676 source:d:\programacion\c\tp-arreglos\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<locale.h>
+	"pila.h"
+
+1711376329 source:d:\programacion\c\tp-arreglos\pila.c
+	"pila.h"
+

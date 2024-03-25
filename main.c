@@ -10,6 +10,7 @@ int main()
     int r = 0;
     char q = NULL;
 
+
     do
     {
         printf("Trabajo Practico de Funciones con Arreglos.\n\n");
@@ -42,14 +43,8 @@ int main()
                     int t = tam();
                     int arreglo[t];
                     cargarArray(&arreglo, t);
-                    mostrarArray(&arreglo, t);
 
-
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
-
-                    system("cls");
+                    salir(&q);
                 }
                 while(q != 'q');
 
@@ -61,12 +56,14 @@ int main()
             {
                 do
                 {
+                    printf("2. Hacer una función que reciba como parámetro un arreglo y la cantidad de elementos (válidos) cargados en él y los muestre por pantalla. \n");
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
+                    int t = tam();
+                    int arreglo[t];
+                    cargarArray(&arreglo, t);
+                    mostrarArray(&arreglo, t);
 
-                    system("cls");
+                   salir(&q);
                 }
                 while(q != 'q');
 
@@ -78,12 +75,16 @@ int main()
             {
                 do
                 {
+                    printf("3. Hacer una función que reciba como parámetro un arreglo y la cantidad de elementos (válidos) cargados en él y calcule la suma de sus elementos.\n");
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
+                    int t = tam();
+                    int arreglo[t];
+                    cargarArray(&arreglo, t);
+                    mostrarArray(&arreglo, t);
+                    sumarArray(&arreglo, t);
 
-                    system("cls");
+
+                    salir(&q);
                 }
                 while(q != 'q');
 
@@ -95,12 +96,21 @@ int main()
             {
                 do
                 {
+                    printf("4. Hacer una función que reciba como parámetro un arreglo, la cantidad de elementos (válidos) cargados en él y una Pila. La función debe copiar los elementos del arreglo en la pila.\n");
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
+                    Pila pilita;
+                    inicpila(&pilita);
 
-                    system("cls");
+                    int t = tam();
+                    int arreglo[t];
+                    cargarArray(&arreglo, t);
+                    mostrarArray(&arreglo, t);
+                    arrayAPila(&arreglo, t, &pilita);
+
+                    printf("\nPILITA:\n");
+                    mostrar(&pilita);
+
+                    salir(&q);
                 }
                 while(q != 'q');
 
@@ -112,12 +122,13 @@ int main()
             {
                 do
                 {
+                    printf("5. Realizar una función que sume los elementos de un arreglo de números reales (float) de dimensión 100.\n");
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
-
-                    system("cls");
+                    int t = 100;
+                    float arreglo[t];
+                    cargarArrayRan(&arreglo, t);
+                    sumarArrayFloat(&arreglo, t);
+                    salir(&q);
                 }
                 while(q != 'q');
 
@@ -129,12 +140,15 @@ int main()
             {
                 do
                 {
+                    printf("6. Realizar una función que indique si un elemento dado se encuentra en un arreglo de caracteres. \n");
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
+                    int t = tam();
+                    int arreglo[t];
+                    cargarArray(&arreglo, t);
+                    mostrarArray(&arreglo, t);
+//                    buscar(&arreglo, t);
 
-                    system("cls");
+                    salir(&q);
                 }
                 while(q != 'q');
 
@@ -147,11 +161,7 @@ int main()
                 do
                 {
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
-
-                    system("cls");
+                    salir(&q);
                 }
                 while(q != 'q');
 
@@ -164,11 +174,7 @@ int main()
                 do
                 {
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
-
-                    system("cls");
+                    salir(&q);
                 }
                 while(q != 'q');
 
@@ -181,11 +187,7 @@ int main()
                 do
                 {
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
-
-                    system("cls");
+                    salir(&q);
                 }
                 while(q != 'q');
 
@@ -198,11 +200,7 @@ int main()
                 do
                 {
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
-
-                    system("cls");
+                    salir(&q);
                 }
                 while(q != 'q');
 
@@ -215,11 +213,7 @@ int main()
                 do
                 {
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
-
-                    system("cls");
+                    salir(&q);
                 }
                 while(q != 'q');
 
@@ -232,11 +226,7 @@ int main()
                 do
                 {
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
-
-                    system("cls");
+                    salir(&q);
                 }
                 while(q != 'q');
 
@@ -249,11 +239,7 @@ int main()
                 do
                 {
 
-                    printf("\nPresione una tecla para continuar, q para salir.");
-                    fflush(stdin);
-                    q = getch();
-
-                    system("cls");
+                    salir(&q);
                 }
                 while(q != 'q');
 
