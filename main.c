@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <locale.h>
-#include "pila.h"
+#include "array.h"
 
 int main()
 {
@@ -42,7 +42,7 @@ int main()
                     printf("1. Hacer una función que reciba como parámetro un arreglo de números enteros y permita que el usuario ingrese valores al mismo por teclado. La función debe retornar la cantidad de elementos cargados en el arreglo.\n\n");
                     int t = tam();
                     int arreglo[t];
-                    cargarArray(&arreglo, t);
+                    cargarArreglo(&arreglo, t);
 
                     salir(&q);
                 }
@@ -58,10 +58,9 @@ int main()
                 {
                     printf("2. Hacer una función que reciba como parámetro un arreglo y la cantidad de elementos (válidos) cargados en él y los muestre por pantalla. \n");
 
-                    int t = tam();
-                    int arreglo[t];
-                    cargarArray(&arreglo, t);
-                    mostrarArray(&arreglo, t);
+                    Arreglo arreglo;
+                    nuevoArreglo(&arreglo);
+                    mostrarArreglo(&arreglo);
 
                    salir(&q);
                 }
@@ -77,11 +76,10 @@ int main()
                 {
                     printf("3. Hacer una función que reciba como parámetro un arreglo y la cantidad de elementos (válidos) cargados en él y calcule la suma de sus elementos.\n");
 
-                    int t = tam();
-                    int arreglo[t];
-                    cargarArray(&arreglo, t);
-                    mostrarArray(&arreglo, t);
-                    sumarArray(&arreglo, t);
+                    Arreglo arreglo;
+                    nuevoArreglo(&arreglo);
+                    mostrarArreglo(&arreglo);
+                    sumarArreglo(&arreglo);
 
 
                     salir(&q);
@@ -100,12 +98,11 @@ int main()
 
                     Pila pilita;
                     inicpila(&pilita);
+                    Arreglo arreglo;
 
-                    int t = tam();
-                    int arreglo[t];
-                    cargarArray(&arreglo, t);
-                    mostrarArray(&arreglo, t);
-                    arrayAPila(&arreglo, t, &pilita);
+                    nuevoArreglo(&arreglo);
+                    mostrarArreglo(&arreglo);
+                    arregloAPila(&arreglo, &pilita);
 
                     printf("\nPILITA:\n");
                     mostrar(&pilita);
@@ -142,11 +139,10 @@ int main()
                 {
                     printf("6. Realizar una función que indique si un elemento dado se encuentra en un arreglo de caracteres. \n");
 
-                    int t = tam();
-                    int arreglo[t];
-                    cargarArray(&arreglo, t);
-                    mostrarArray(&arreglo, t);
-//                    buscar(&arreglo, t);
+                    Arreglo arreglo;
+                    nuevoArreglo(&arreglo);
+                    mostrarArreglo(&arreglo);
+                    buscar(&arreglo, 5);
 
                     salir(&q);
                 }
@@ -160,6 +156,9 @@ int main()
             {
                 do
                 {
+                    Arreglo arr;
+                    nuevoArreglo(&arr);
+                    mostrarArreglo(&arr);
 
                     salir(&q);
                 }

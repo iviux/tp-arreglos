@@ -1,4 +1,4 @@
-#include "pila.h"
+#include "array.h"
 
 
 void inicpila(P_Pila p)
