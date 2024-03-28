@@ -40,9 +40,9 @@ int main()
                 do
                 {
                     printf("1. Hacer una función que reciba como parámetro un arreglo de números enteros y permita que el usuario ingrese valores al mismo por teclado. La función debe retornar la cantidad de elementos cargados en el arreglo.\n\n");
-//                    int t = tam();
-//                    int arreglo[t];
-//                    cargarArreglo(&arreglo, t);
+
+                    Arreglo arreglo;
+                    nuevoArreglo(&arreglo);
 
                     salir(&q);
                 }
@@ -122,8 +122,9 @@ int main()
                     printf("5. Realizar una función que sume los elementos de un arreglo de números reales (float) de dimensión 100.\n");
 
                     Arreglo arreglo;
-                    cargarArreglo(&arreglo);
-                    sumarArrayFloat(&arreglo, t);
+                    nuevoArreglo(&arreglo);
+                    mostrarArreglo(&arreglo);
+                    sumarArreglo(&arreglo);
                     salir(&q);
                 }
                 while(q != 'q');
@@ -157,9 +158,12 @@ int main()
                 {
                     printf("7. Realizar una función que inserte un carácter en un arreglo ordenado alfabéticamente, conservando el orden.\n");
 
-                    Arreglo arr;
-                    nuevoArreglo(&arr);
-                    mostrarArreglo(&arr);
+                    Arreglo arreglo;
+                    nuevoArreglo(&arreglo);
+                    mostrarArreglo(&arreglo);
+                    ordenarArreglo(&arreglo);
+                    insertarArreglo(&arreglo);
+                    mostrarArreglo(&arreglo);
 
                     salir(&q);
                 }

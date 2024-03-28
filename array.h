@@ -1,5 +1,3 @@
-#ifndef ARRAY_H_INCLUDED
-#define ARRAY_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
 #define Arreglo struct _Arreglo
@@ -14,7 +12,7 @@ struct _Arreglo
     float *F;
 };
 
-void salir(int *q);
+void salir(char *q);
 void nuevoArreglo (Arreglo *a);
 void cargarArreglo(Arreglo *a);
 int tam();
@@ -23,4 +21,3 @@ void sumarArreglo(Arreglo *a);
 void arregloAPila(Arreglo *a, Pila *p);
 void buscar(Arreglo *a);
 
-#endif // ARRAY_H_INCLUDED
