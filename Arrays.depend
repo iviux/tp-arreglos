@@ -6,15 +6,15 @@
 	<stdio.h>
 	<malloc.h>
 
-1711583469 source:c:\utn\programacion\arrays\array.c
+1711585157 source:c:\utn\programacion\arrays\array.c
 	"array.h"
 
-1711583214 c:\utn\programacion\arrays\array.h
+1711584961 c:\utn\programacion\arrays\array.h
 	<stdio.h>
 	<stdlib.h>
 	"pila.h"
 
-1711583214 source:c:\utn\programacion\arrays\main.c
+1711584961 source:c:\utn\programacion\arrays\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>

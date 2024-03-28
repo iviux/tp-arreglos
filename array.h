@@ -7,7 +7,9 @@
 
 struct _Arreglo
 {
+    char tipo;
     int T;
+    char *C;
     int *V;
 };
 
@@ -20,6 +22,6 @@ void mostrarArreglo(Arreglo *a);
 void sumarArreglo(Arreglo *a);
 void sumarArrayFloat(float *a, int t);
 void arregloAPila(Arreglo *a, Pila *p);
-void buscar(Arreglo *a, int n);
+void buscar(Arreglo *a);
 
 #endif // ARRAY_H_INCLUDED

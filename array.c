@@ -11,9 +11,34 @@ void salir(int *q)
 
 void nuevoArreglo (Arreglo *a)
 {
+    printf("Que tipo de arreglo se va a usar? (c, i, f)\n");
+    fflush(stdin);
+    a->tipo = getch();
+
+    while(a->tipo != 'c' && a->tipo != 'i' && a->tipo != 'f')
+    {
+        printf("Valor incorrecto, que tipo de arreglo se va a usar? (c, i, f)");
+        fflush(stdin);
+        a->tipo = getch();
+    }
+
+    a->V =(int *)malloc(50*sizeof(int));
     a->T = tam();
-    a->V =(int *)malloc(a->T*sizeof(int));
-    cargarArreglo(a->V, a->T);
+    a->V =(int *)realloc(a->V, a->T*sizeof(int));
+    free(a->V);
+
+    if (a->tipo == 'i')
+    {
+        cargarArreglo(a->V, a->T);
+    }
+    else if (r == 'c')
+    {
+        cargarArregloC(a->C, a->T);
+    }
+    else if (r == 'f')
+    {
+        cargarArregloF(a->F, a->T);
+    }
 }
 
 
@@ -21,8 +46,30 @@ void cargarArreglo(int *a, int t)
 {
     for (int i = 0; i < t; i++)
     {
-        printf("\nIngrese un numero entero: ");
+        printf("Ingrese un numero entero: ");
         scanf("%d", &a[i]);
+    }
+    printf("\nEl arreglo fue cargado con %d elementos.\n", t);
+
+}
+
+void cargarArregloC(char *a, int t)
+{
+    for (int i = 0; i < t; i++)
+    {
+        printf("Ingrese un caracter: ");
+        scanf("%c", &a[i]);
+    }
+    printf("\nEl arreglo fue cargado con %d elementos.\n", t);
+
+}
+
+void cargarArregloF(float *a, int t)
+{
+    for (int i = 0; i < t; i++)
+    {
+        printf("Ingrese un float: ");
+        scanf("%f", &a[i]);
     }
     printf("\nEl arreglo fue cargado con %d elementos.\n", t);
 
@@ -46,6 +93,7 @@ int tam()
     int t;
     printf("Ingrese el tamaño de su arreglo: ");
     scanf("%d", &t);
+    printf("\n");
     return t;
 }
 
@@ -55,7 +103,7 @@ void mostrarArreglo(Arreglo *a)
     {
         printf("| %d ", a->V[i]);
     }
-    printf("\n");
+    printf("\n\n");
 }
 
 void sumarArreglo(Arreglo *a)
@@ -90,9 +138,13 @@ void arregloAPila(Arreglo *a, Pila *p)
     }
 }
 
-void buscar(Arreglo *a, int n)
+void buscar(Arreglo *a)
 {
+    int n = 0;
     int flag = 0;
+
+    printf("Que elemento desea buscar en el arreglo? ");
+    scanf("%d",&n);
 
     for (int i = 0; i < a->T; i++)
     {
@@ -104,10 +156,10 @@ void buscar(Arreglo *a, int n)
 
     if (flag == 0)
     {
-        printf("El elemento %d no se encuentra en el arreglo.", n);
+        printf("\nEl elemento %d no se encuentra en el arreglo.", n);
     }
     else
     {
-        printf("El elemento %d se encuentra en el arreglo.", n);
+        printf("\nEl elemento %d se encuentra en el arreglo.", n);
     }
 }

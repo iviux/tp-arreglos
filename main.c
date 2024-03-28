@@ -142,7 +142,7 @@ int main()
                     Arreglo arreglo;
                     nuevoArreglo(&arreglo);
                     mostrarArreglo(&arreglo);
-                    buscar(&arreglo, 5);
+                    buscar(&arreglo);
 
                     salir(&q);
                 }
@@ -156,6 +156,8 @@ int main()
             {
                 do
                 {
+                    printf("7. Realizar una función que inserte un carácter en un arreglo ordenado alfabéticamente, conservando el orden.\n");
+
                     Arreglo arr;
                     nuevoArreglo(&arr);
                     mostrarArreglo(&arr);
