@@ -11,16 +11,15 @@ struct _Arreglo
     int T;
     char *C;
     int *V;
+    float *F;
 };
 
 void salir(int *q);
 void nuevoArreglo (Arreglo *a);
-void cargarArreglo(int *a, int t);
-void cargarArrayRan(float *a, int t);
+void cargarArreglo(Arreglo *a);
 int tam();
 void mostrarArreglo(Arreglo *a);
 void sumarArreglo(Arreglo *a);
-void sumarArrayFloat(float *a, int t);
 void arregloAPila(Arreglo *a, Pila *p);
 void buscar(Arreglo *a);
 

@@ -9,85 +9,6 @@ void salir(int *q)
     system("cls");
 }
 
-void nuevoArreglo (Arreglo *a)
-{
-    printf("Que tipo de arreglo se va a usar? (c, i, f)\n");
-    fflush(stdin);
-    a->tipo = getch();
-
-    while(a->tipo != 'c' && a->tipo != 'i' && a->tipo != 'f')
-    {
-        printf("Valor incorrecto, que tipo de arreglo se va a usar? (c, i, f)");
-        fflush(stdin);
-        a->tipo = getch();
-    }
-
-    a->V =(int *)malloc(50*sizeof(int));
-    a->T = tam();
-    a->V =(int *)realloc(a->V, a->T*sizeof(int));
-    free(a->V);
-
-    if (a->tipo == 'i')
-    {
-        cargarArreglo(a->V, a->T);
-    }
-    else if (r == 'c')
-    {
-        cargarArregloC(a->C, a->T);
-    }
-    else if (r == 'f')
-    {
-        cargarArregloF(a->F, a->T);
-    }
-}
-
-
-void cargarArreglo(int *a, int t)
-{
-    for (int i = 0; i < t; i++)
-    {
-        printf("Ingrese un numero entero: ");
-        scanf("%d", &a[i]);
-    }
-    printf("\nEl arreglo fue cargado con %d elementos.\n", t);
-
-}
-
-void cargarArregloC(char *a, int t)
-{
-    for (int i = 0; i < t; i++)
-    {
-        printf("Ingrese un caracter: ");
-        scanf("%c", &a[i]);
-    }
-    printf("\nEl arreglo fue cargado con %d elementos.\n", t);
-
-}
-
-void cargarArregloF(float *a, int t)
-{
-    for (int i = 0; i < t; i++)
-    {
-        printf("Ingrese un float: ");
-        scanf("%f", &a[i]);
-    }
-    printf("\nEl arreglo fue cargado con %d elementos.\n", t);
-
-}
-
-void cargarArrayRan(float *a, int t)
-{
-    srand(time(NULL));
-
-    for (int i = 0; i < t; i++)
-    {
-        a[i] =(double) rand() / RAND_MAX * 10;
-        printf("| %.1f ", a[i]);
-    }
-    printf("\nEl arreglo fue cargado con %d elementos aleatorios.\n", t);
-
-}
-
 int tam()
 {
     int t;
@@ -97,18 +18,103 @@ int tam()
     return t;
 }
 
+void nuevoArreglo (Arreglo *a)
+{
+    printf("Que tipo de arreglo se va a usar? (c, i, f, r)\n");
+    fflush(stdin);
+    a->tipo = getch();
+
+    while(a->tipo != 'c' && a->tipo != 'i' && a->tipo != 'f' && a->tipo != 'r')
+    {
+        printf("Valor incorrecto, que tipo de arreglo se va a usar? (c, i, f, r)");
+        fflush(stdin);
+        a->tipo = getch();
+    }
+
+    a->V =(int *)malloc(50*sizeof(int));
+    a->T = tam();
+    a->V =(int *)realloc(a->V, a->T*sizeof(int));
+    free(a->V);
+    cargarArreglo(a);
+
+}
+
+void cargarArreglo(Arreglo *a)
+{
+    if (a->tipo == 'c')
+    {
+        for (int i = 0; i < a->T; i++)
+        {
+            printf("Ingrese un numero entero: ");
+            scanf("%d", &a->C[i]);
+        }
+        a->C[i + 1] = 0;
+    }
+    else if (a->tipo == 'i')
+    {
+        for (int i = 0; i < a->T; i++)
+        {
+            printf("Ingrese un numero entero: ");
+            scanf("%d", &a->V[i]);
+        }
+    }
+    else if (a->tipo == 'f')
+    {
+        for (int i = 0; i < a->T; i++)
+        {
+            printf("Ingrese un numero entero: ");
+            scanf("%d", &a->F[i]);
+        }
+    }
+    else if (a->tipo == 'r')
+    {
+        srand(time(NULL));
+
+        for (int i = 0; i < a->T; i++)
+        {
+            a->F[i] =(double) rand() / RAND_MAX * 10;
+        }
+    }
+
+    printf("\nEl arreglo fue cargado con %d elementos.\n", a->T);
+}
+
 void mostrarArreglo(Arreglo *a)
 {
-    for (int i = 0; i < a->T; i++)
+    if (a->tipo == 'c')
     {
-        printf("| %d ", a->V[i]);
+        for (int i = 0; i < a->T; i++)
+        {
+            printf("%c", a->C[i]);
+        }
+        printf("\n\n");
     }
-    printf("\n\n");
+    else if (a->tipo == 'i')
+    {
+        for (int i = 0; i < a->T; i++)
+        {
+            printf("| %d ", a->V[i]);
+        }
+        printf("\n\n");
+    }
+    else
+    {
+        for (int i = 0; i < a->T; i++)
+        {
+            printf("| %.2f ", a->F[i]);
+        }
+        printf("\n\n");
+    }
 }
 
 void sumarArreglo(Arreglo *a)
 {
     int suma = 0;
+
+    if (a->tipo == 'c')
+    {
+
+    }
 
     for (int i = 0; i < a->T; i++)
     {
