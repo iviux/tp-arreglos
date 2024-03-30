@@ -109,7 +109,7 @@ void mostrarArreglo(Arreglo *a)
     {
         for (int i = 0; i < a->T; i++)
         {
-            printf("%c", a->C[i]);
+            printf("%c", a->C[i][a->N]);
         }
         printf("\n\n");
     }
@@ -117,7 +117,7 @@ void mostrarArreglo(Arreglo *a)
     {
         for (int i = 0; i < a->T; i++)
         {
-            printf("| %d ", a->V[i]);
+            printf("| %d ", a->V[i][a->N]);
         }
         printf("\n\n");
     }
@@ -125,7 +125,7 @@ void mostrarArreglo(Arreglo *a)
     {
         for (int i = 0; i < a->T; i++)
         {
-            printf("| %.2f ", a->F[i]);
+            printf("| %.2f ", a->F[i][a->N]);
         }
         printf("\n\n");
     }
@@ -139,7 +139,7 @@ void sumarArreglo(Arreglo *a)
 
         for (int i = 0; i < a->T; i++)
         {
-            suma += a->V[i];
+            suma += a->V[i][a->N];
         }
 
         printf("\n\nLa suma de los elementos del arreglo es %d.", suma);
@@ -150,7 +150,7 @@ void sumarArreglo(Arreglo *a)
 
         for (int i = 0; i < a->T; i++)
         {
-            suma += a->F[i];
+            suma += a->F[i][a->N];
         }
 
         printf("\n\nLa suma de los elementos del arreglo es %.2f", suma);
@@ -163,7 +163,7 @@ void arregloAPila(Arreglo *a, Pila *p)
 {
     for (int i = 0; i < a->T; i++)
     {
-        apilar(p, a->V[i]);
+        apilar(p, a->V[i][a->N]);
     }
 
     printf("Arreglo:\n\n");
@@ -279,14 +279,14 @@ void ordenarArreglo (Arreglo *a)
 
             for (int i = 0; i < a->T; i++)
             {
-                ordenada = a->C[i];
+                ordenada = a->C[i][a->N];
                 for (int j = i; j < a->T; j++)
                 {
-                    if (a->C[j] < ordenada)
+                    if (a->C[j][a->N] < ordenada)
                     {
-                        ordenada = a->C[j];
-                        a->C[j] = a->C[i];
-                        a->C[i] = ordenada;
+                        ordenada = a->C[j][a->N];
+                        a->C[j][a->N] = a->C[i][a->N];
+                        a->C[i][a->N] = ordenada;
                     }
                 }
             }
@@ -297,14 +297,14 @@ void ordenarArreglo (Arreglo *a)
 
             for (int i = 0; i < a->T; i++)
             {
-                ordenada = a->V[i];
+                ordenada = a->V[i][a->N];
                 for (int j = i; j < a->T; j++)
                 {
-                    if (a->V[j] < ordenada)
+                    if (a->V[j][a->N] < ordenada)
                     {
-                        ordenada = a->V[j];
-                        a->V[j] = a->V[i];
-                        a->V[i] = ordenada;
+                        ordenada = a->V[j][a->N];
+                        a->V[j][a->N] = a->V[i][a->N];
+                        a->V[i][a->N] = ordenada;
                     }
                 }
             }
@@ -315,13 +315,14 @@ void ordenarArreglo (Arreglo *a)
 
             for (int i = 0; i < a->T; i++)
             {
-                ordenada = a->F[0];
+                ordenada = a->F[i][a->N];
                 for (int j = i; j < a->T; j++)
                 {
-                    if (a->F[j] < ordenada)
+                    if (a->F[j][a->N] < ordenada)
                     {
-                        a->F[j-1] = a->F[j];
-                        a->F[j] = ordenada;
+                        ordenada = a->F[j][a->N];
+                        a->F[j][a->N] = a->F[i][a->N];
+                        a->F[i][a->N] = ordenada;
                     }
                 }
             }
@@ -335,16 +336,16 @@ void ordenarArreglo (Arreglo *a)
 
             for (int i = 1; i < a->T; i++)
             {
-                ordenada = a->C[i];
+                ordenada = a->C[i][a->N];
                 int j = i - 1;
 
-                while (j >= 0 && a->C[j] > ordenada)
+                while (j >= 0 && a->C[j][a->N] > ordenada)
                 {
-                    a->C[j + 1] = a->C[j];
+                    a->C[j + 1][a->N] = a->C[j][a->N];
                     j--;
                 }
 
-                a->C[j + 1] = ordenada;
+                a->C[j + 1][a->N] = ordenada;
             }
         }
         else if (a->tipo == 'i')
@@ -353,16 +354,16 @@ void ordenarArreglo (Arreglo *a)
 
             for (int i = 1; i < a->T; i++)
             {
-                ordenada = a->V[i];
+                ordenada = a->V[i][a->N];
                 int j = i - 1;
 
-                while (j >= 0 && a->V[j] > ordenada)
+                while (j >= 0 && a->V[j][a->N] > ordenada)
                 {
-                    a->V[j + 1] = a->V[j];
+                    a->V[j + 1][a->N] = a->V[j][a->N];
                     j--;
                 }
 
-                a->V[j + 1] = ordenada;
+                a->V[j + 1][a->N] = ordenada;
             }
         }
         else
@@ -371,16 +372,16 @@ void ordenarArreglo (Arreglo *a)
 
             for (int i = 1; i < a->T; i++)
             {
-                ordenada = a->F[i];
+                ordenada = a->F[i][a->N];
                 int j = i - 1;
 
-                while (j >= 0 && a->F[j] > ordenada)
+                while (j >= 0 && a->F[j][a->N] > ordenada)
                 {
-                    a->F[j + 1] = a->F[j];
+                    a->F[j + 1][a->N] = a->F[j][a->N];
                     j--;
                 }
 
-                a->F[j + 1] = ordenada;
+                a->F[j + 1][a->N] = ordenada;
             }
         }
     }
@@ -401,16 +402,16 @@ void insertarArreglo(Arreglo *a)
         t = a->T;
         a->T += ins;
 
-        a->C =(char *)realloc(a->C, (a->T + 1)*sizeof(char));
+        a->C =(char **)realloc(a->C, ((a->T*a->N)+ 1)*sizeof(char));
 
         for (int i = t; i < a->T; i++)
         {
             printf("Ingrese un elemento para insertar al arreglo: ");
             fflush(stdin);
             scanf("%c", &temp);
-            a->C[i] = temp;
+            a->C[i][a->N] = temp;
         }
-        a->C[a->T] = '\0';
+        a->C[a->T][a->N] = '\0';
 
     }
     else if (a->tipo == 'i')
@@ -423,13 +424,13 @@ void insertarArreglo(Arreglo *a)
         t = a->T;
         a->T += ins;
 
-        a->V =(int *)realloc(a->V, a->T*sizeof(int));
+        a->V =(int **)realloc(a->V, (a->T*a->N)*sizeof(int));
 
         for (int i = t; i < a->T; i++)
         {
             printf("Ingrese un elemento para insertar al arreglo: ");
             scanf("%d", &temp);
-            a->V[i] = temp;
+            a->V[i][a->N] = temp;
         }
     }
     else
@@ -442,13 +443,13 @@ void insertarArreglo(Arreglo *a)
         t = a->T;
         a->T += ins;
 
-        a->F =(float *)realloc(a->F, a->T*sizeof(float));
+        a->F =(int **)realloc(a->F, (a->T*a->N)*sizeof(int));
 
         for (int i = t; i < a->T; i++)
         {
             printf("Ingrese un elemento para insertar al arreglo: ");
             scanf("%f", &temp);
-            a->F[i] = temp;
+            a->F[i][a->N] = temp;
         }
     }
 
@@ -461,13 +462,13 @@ void buscarMayorArreglo(Arreglo *a)
     if (a->tipo == 'c')
     {
         char mayor;
-        mayor = a->C[0];
+        mayor = a->C[0][a->N];
 
         for (int i = 0; i < a->T; i++)
         {
-            if (a->C[i] > mayor)
+            if (a->C[i][a->N] > mayor)
             {
-                mayor = a->C[i];
+                mayor = a->C[i][a->N];
             }
         }
 
@@ -476,13 +477,13 @@ void buscarMayorArreglo(Arreglo *a)
     else if (a->tipo == 'i')
     {
         int mayor;
-        mayor = a->V[0];
+        mayor = a->V[0][a->N];
 
         for (int i = 0; i < a->T; i++)
         {
-            if (a->V[i] > mayor)
+            if (a->V[i][a->N] > mayor)
             {
-                mayor = a->V[i];
+                mayor = a->V[i][a->N];
             }
         }
 
@@ -491,13 +492,13 @@ void buscarMayorArreglo(Arreglo *a)
     else
     {
         float mayor;
-        mayor = a->F[0];
+        mayor = a->F[0][a->N];
 
         for (int i = 0; i < a->T; i++)
         {
-            if (a->F[i] > mayor)
+            if (a->F[i][a->N] > mayor)
             {
-                mayor = a->F[i];
+                mayor = a->F[i][a->N];
             }
         }
 
@@ -513,7 +514,7 @@ void esCapicua(Arreglo *a)
 
         for (int i = 0; i < a->T; i++)
         {
-            if (a->C[i] != a->C[a->T - (i + 1)])
+            if (a->C[i][a->N] != a->C[a->T - (i + 1)][a->N])
             {
                 flag = 1;
             }
@@ -534,7 +535,7 @@ void esCapicua(Arreglo *a)
 
         for (int i = 0; i < a->T; i++)
         {
-            if (a->V[i] != a->V[a->T - (i + 1)])
+            if (a->V[i][a->N] != a->V[a->T - (i + 1)][a->N])
             {
                 flag = 1;
             }
@@ -555,7 +556,7 @@ void esCapicua(Arreglo *a)
 
         for (int i = 0; i < a->T; i++)
         {
-            if (a->F[i] != a->F[a->T - (i + 1)])
+            if (a->F[i][a->N] != a->F[a->T - (i + 1)][a->N])
             {
                 flag = 1;
             }
@@ -578,37 +579,33 @@ void invertirArreglo(Arreglo *a)
     {
         for (int i = 0; i < a->T; i++)
         {
-            a->C[i] = a->C[i] + a->C[a->T - (i+1)];
+            a->C[i][a->N] = a->C[i][a->N] + a->C[a->T - (i+1)][a->N];
 
-            a->C[a->T - (i+1)] = a->C[i] - a->C[a->T - (i+1)];
+            a->C[a->T - (i+1)][a->N] = a->C[i][a->N] - a->C[a->T - (i+1)][a->N];
 
-            a->C[i] = a->C[i] - a->C[a->T - (i+1)];
+            a->C[i][a->N] = a->C[i][a->N] - a->C[a->T - (i+1)][a->N];
         }
     }
     else if (a->tipo == 'i')
     {
-        int valoresInvertidos[a->T];
+        for (int i = 0; i < a->T; i++)
+        {
+            a->V[i][a->N] = a->V[i][a->N] + a->V[a->T - (i+1)][a->N];
 
-        for (int i = 0; i < a->T; i++)
-        {
-            valoresInvertidos[i] = a->V[a->T - (i + 1)];
-        }
-        for (int i = 0; i < a->T; i++)
-        {
-            a->V[i] = valoresInvertidos[i];
+            a->V[a->T - (i+1)][a->N] = a->V[i][a->N] - a->V[a->T - (i+1)][a->N];
+
+            a->V[i][a->N] = a->V[i][a->N] - a->V[a->T - (i+1)][a->N];
         }
     }
     else
     {
-        float valoresInvertidos[a->T];
+        for (int i = 0; i < a->T; i++)
+        {
+            a->F[i][a->N] = a->F[i][a->N] + a->F[a->T - (i+1)][a->N];
 
-        for (int i = 0; i < a->T; i++)
-        {
-            valoresInvertidos[i] = a->F[a->T - (i + 1)];
-        }
-        for (int i = 0; i < a->T; i++)
-        {
-            a->F[i] = valoresInvertidos[i];
+            a->F[a->T - (i+1)][a->N] = a->F[i][a->N] - a->F[a->T - (i+1)][a->N];
+
+            a->F[i][a->N] = a->F[i][a->N] - a->F[a->T - (i+1)][a->N];
         }
     }
 }
