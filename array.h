@@ -1,13 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define Arreglo struct _Arreglo
+#define INDEX a->N
+#define TIPO a->tipo
+#define TAM a->T
 #include "pila.h"
+
 
 struct _Arreglo
 {
     char tipo;
     int N;
-    int T;
+    int *T;
     char **C;
     int **V;
     float **F;
@@ -18,6 +22,7 @@ void queArreglo(Arreglo *a);
 void nuevoArreglo (Arreglo *a);
 void cargarArreglo(Arreglo *a);
 int tam();
+void reasignMem(Arreglo *a);
 void mostrarArreglo(Arreglo *a);
 void sumarArreglo(Arreglo *a);
 void arregloAPila(Arreglo *a, Pila *p);

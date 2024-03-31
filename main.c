@@ -8,8 +8,9 @@ int main()
 {
     setlocale(LC_ALL, "spanish");
     int r = 0;
-    char q = NULL;
+    char q;
     Arreglo arreglo;
+    nuevoArreglo(&arreglo);
 
     do
     {
@@ -43,9 +44,9 @@ int main()
             {
                 case 1:
                 {
-                    printf("1. Crear un Arreglo.\n\n");
+                    printf("1. Cargar un Arreglo.\n\n");
 
-                    nuevoArreglo(&arreglo);
+                    cargarArreglo(&arreglo);
 
                     break;
                 }

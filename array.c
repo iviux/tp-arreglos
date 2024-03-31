@@ -2,6 +2,8 @@
 
 void salir(char *q)
 {
+    // Funcion para decidir si se desea seguir editando un arreglo o volver a la seleccion
+
     printf("\nPresione una tecla para continuar editando el arreglo, q para salir.");
     fflush(stdin);
     *q = getch();
@@ -11,13 +13,33 @@ void salir(char *q)
 
 void queArreglo(Arreglo *a)
 {
-    printf("Ingrese el numero de arreglo que desea crear o modificar: ");
-    scanf("%d", &(a->N));
-    a->N = a->N - 1;
+    // Funcion para crear un arreglo o seleccionar un arreglo existente.
+    static int n = 0;
+    // Control para que solo se pueda ingresar a arreglos existentes o crear el arreglo consecutivo al ultimo creado
+
+    do
+    {
+        system("cls");
+        printf("Ingrese el numero de arreglo que desea crear o modificar: ");
+        scanf("%d", &(INDEX));
+    }
+    while (INDEX > n + 1 || INDEX < 0);
+
+    INDEX = INDEX -1;
+
+    // Si el numero del arreglo es igual al indice de arreglos existentes, incremento el indice
+
+    if (INDEX == n)
+    {
+        n++;
+    }
 }
+
 
 int tam()
 {
+    // Funcion para que el usuario seleccione el tamaño del arreglo
+
     int t;
     printf("Ingrese el tamaño de su arreglo: ");
     scanf("%d", &t);
@@ -27,105 +49,142 @@ int tam()
 
 void nuevoArreglo (Arreglo *a)
 {
-    a->C =(char **)malloc(50*sizeof(char));
-    a->V =(int **)malloc(50*sizeof(int));
-    a->F =(float **)malloc(50*sizeof(float));
+    TAM =(int *)malloc(2*sizeof(int));
+
+    INDEX = 0;
+
+    if(TIPO == 'c')
+    {
+        a->C =(char **)malloc(50*sizeof(char));
+    }
+    else if (TIPO == 'i')
+    {
+        a->V =(int **)malloc(50*sizeof(int));
+    }
+    else
+    {
+        a->F =(float **)malloc(50*sizeof(float));
+    }
 
     printf("Que tipo de arreglo se va a usar? (c, i, f, r)\n");
     fflush(stdin);
-    a->tipo = getch();
+    TIPO = getch();
 
-    while(a->tipo != 'c' && a->tipo != 'i' && a->tipo != 'f' && a->tipo != 'r')
+    while(TIPO != 'c' && TIPO != 'i' && TIPO != 'f' && TIPO != 'r')
     {
         printf("\033[F\033[K");
         printf("Valor incorrecto, que tipo de arreglo se va a usar? (c, i, f, r)\n");
         fflush(stdin);
-        a->tipo = getch();
+        TIPO = getch();
+    }
+}
+
+void reasignMem(Arreglo *a)
+{
+    int suma = 0;
+
+    for (int i = 0; i < (INDEX + 1); i++)
+    {
+        suma += TAM[i];
     }
 
-    a->T = tam();
-    cargarArreglo(a);
+    if(TIPO == 'c')
+    {
+        a->C = (char **)realloc(a->C, (INDEX + 1) * sizeof(char));
+        for (int i = 0; i < INDEX + 1; ++i)
+        {
+            a->C[i] =(char *)realloc (a->C, (suma + (INDEX + 1))*sizeof(char));
+        }
+    }
+    else if (TIPO == 'i')
+    {
+        a->V =(int **)realloc (a->V, suma*sizeof(int));
+    }
+    else if (TIPO == 'f' || TIPO == 'r')
+    {
+        a->F =(float **)realloc(a->F, suma*sizeof(float));
+    }
 
+    TAM =(int *)realloc (TAM, (INDEX+2)*sizeof(int));
 }
 
 void cargarArreglo(Arreglo *a)
 {
-    if (a->tipo == 'c')
+    // Establezco el tamaño que va a tener el arreglo seleccionado (INDEX = indice de arreglo)
+    TAM[INDEX] = tam();
+//    printf("TAMAÑO %d\n", TAM[INDEX]);
+
+    reasignMem(a);
+
+    int mem = (int)sizeof(*a)/sizeof(char);
+
+    if (TIPO == 'c')
     {
-        a->C =(char **)realloc(a->C, ((a->T*a->N)+ 1)*sizeof(char));
-
-        int i;
-
-        for (i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
             printf("Ingrese un caracter: ");
             fflush(stdin);
-            scanf("%c", &(a->C[i][a->N]));
-            printf("\033[F\033[K");
+            scanf("%c", &(a->C[i][INDEX]));
+//            printf("\033[F\033[K");
+            printf("memoria %d, tamaño %d, fila %d, columna %d, valor %c\n", mem, TAM[INDEX], i, INDEX, a->C[i][INDEX]);
         }
 
-        a->C[i + 1] = '\0';
+        a->C[TAM[INDEX]][INDEX] = '\0';
     }
-    else if (a->tipo == 'i')
+    else if (TIPO == 'i')
     {
-        a->V =(int **)realloc(a->V, (a->T*a->N)*sizeof(int));
-
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
             printf("Ingrese un numero entero: ");
-            scanf("%d", &a->V[i][a->N]);
+            scanf("%d", &(a->V[i][INDEX]));
             printf("\033[F\033[K");
         }
     }
-    else if (a->tipo == 'f')
+    else if (TIPO == 'f')
     {
-        a->F =(float **)realloc(a->F, (a->T*a->N)*sizeof(float));
-
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
             printf("Ingrese un float: ");
-            scanf("%f", &a->F[i][a->N]);
+            scanf("%f", &(a->F[i][INDEX]));
             printf("\033[F\033[K");
         }
     }
-    else if (a->tipo == 'r')
+    else if (TIPO == 'r')
     {
-        a->F =(float **)realloc(a->F, (a->T*a->N)*sizeof(float));
-
         srand(time(NULL));
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            a->F[i][a->N] =(double) rand() / RAND_MAX * 10;
+            a->F[i][INDEX] =(double) rand() / RAND_MAX * 10;
         }
     }
 
-    printf("\nEl arreglo fue cargado con %d elementos.\n", a->T);
+    printf("\nEl arreglo fue cargado con %d elementos.\n", TAM[INDEX]);
 }
 
 void mostrarArreglo(Arreglo *a)
 {
-    if (a->tipo == 'c')
+    if (TIPO == 'c')
     {
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            printf("%c", a->C[i][a->N]);
+            printf("| %c", a->C[i][INDEX]);
         }
         printf("\n\n");
     }
-    else if (a->tipo == 'i')
+    else if (TIPO == 'i')
     {
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            printf("| %d ", a->V[i][a->N]);
+            printf("| %d ", a->V[i][INDEX]);
         }
         printf("\n\n");
     }
     else
     {
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            printf("| %.2f ", a->F[i][a->N]);
+            printf("| %.2f ", a->F[i][INDEX]);
         }
         printf("\n\n");
     }
@@ -133,24 +192,24 @@ void mostrarArreglo(Arreglo *a)
 
 void sumarArreglo(Arreglo *a)
 {
-    if (a->tipo == 'i')
+    if (TIPO == 'i')
     {
         int suma = 0;
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            suma += a->V[i][a->N];
+            suma += a->V[i][INDEX];
         }
 
         printf("\n\nLa suma de los elementos del arreglo es %d.", suma);
     }
-    else if (a->tipo == 'f' || a->tipo == 'r')
+    else if (TIPO == 'f' || TIPO == 'r')
     {
         float suma = 0;
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            suma += a->F[i][a->N];
+            suma += a->F[i][INDEX];
         }
 
         printf("\n\nLa suma de los elementos del arreglo es %.2f", suma);
@@ -161,9 +220,9 @@ void sumarArreglo(Arreglo *a)
 
 void arregloAPila(Arreglo *a, Pila *p)
 {
-    for (int i = 0; i < a->T; i++)
+    for (int i = 0; i < TAM[INDEX]; i++)
     {
-        apilar(p, a->V[i][a->N]);
+        apilar(p, a->V[i][INDEX]);
     }
 
     printf("Arreglo:\n\n");
@@ -178,15 +237,15 @@ void buscar(Arreglo *a)
     int flag = 0;
     printf("Que elemento desea buscar en el arreglo? ");
 
-    if (a->tipo == 'i')
+    if (TIPO == 'i')
     {
         int n = 0;
 
         scanf("%d",&n);
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            if (a->V[i] == n)
+            if (a->V[i][INDEX] == n)
             {
                 flag = 1;
             }
@@ -203,16 +262,16 @@ void buscar(Arreglo *a)
             mostrarArreglo(a);
         }
     }
-    else if (a->tipo == 'c')
+    else if (TIPO == 'c')
     {
         char n;
 
         fflush(stdin);
         scanf("%c",&n);
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            if (a->C[i] == n)
+            if (a->C[i][INDEX] == n)
             {
                 flag = 1;
             }
@@ -229,15 +288,15 @@ void buscar(Arreglo *a)
             mostrarArreglo(a);
         }
     }
-    else if (a->tipo == 'f')
+    else if (TIPO == 'f')
     {
         float n = 0;
 
         scanf("%f",&n);
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            if (a->F[i] == n)
+            if (a->F[i][INDEX] == n)
             {
                 flag = 1;
             }
@@ -273,38 +332,38 @@ void ordenarArreglo (Arreglo *a)
 
     if (o == 's')
     {
-        if (a->tipo == 'c')
+        if (TIPO == 'c')
         {
             char ordenada;
 
-            for (int i = 0; i < a->T; i++)
+            for (int i = 0; i < TAM[INDEX]; i++)
             {
-                ordenada = a->C[i][a->N];
-                for (int j = i; j < a->T; j++)
+                ordenada = a->C[i][INDEX];
+                for (int j = i; j < TAM[INDEX]; j++)
                 {
-                    if (a->C[j][a->N] < ordenada)
+                    if (a->C[j][INDEX] < ordenada)
                     {
-                        ordenada = a->C[j][a->N];
-                        a->C[j][a->N] = a->C[i][a->N];
-                        a->C[i][a->N] = ordenada;
+                        ordenada = a->C[j][INDEX];
+                        a->C[j][INDEX] = a->C[i][INDEX];
+                        a->C[i][INDEX] = ordenada;
                     }
                 }
             }
         }
-        else if (a->tipo == 'i')
+        else if (TIPO == 'i')
         {
             int ordenada = 0;
 
-            for (int i = 0; i < a->T; i++)
+            for (int i = 0; i < TAM[INDEX]; i++)
             {
-                ordenada = a->V[i][a->N];
-                for (int j = i; j < a->T; j++)
+                ordenada = a->V[i][INDEX];
+                for (int j = i; j < TAM[INDEX]; j++)
                 {
-                    if (a->V[j][a->N] < ordenada)
+                    if (a->V[j][INDEX] < ordenada)
                     {
-                        ordenada = a->V[j][a->N];
-                        a->V[j][a->N] = a->V[i][a->N];
-                        a->V[i][a->N] = ordenada;
+                        ordenada = a->V[j][INDEX];
+                        a->V[j][INDEX] = a->V[i][INDEX];
+                        a->V[i][INDEX] = ordenada;
                     }
                 }
             }
@@ -313,16 +372,16 @@ void ordenarArreglo (Arreglo *a)
         {
             float ordenada = 0;
 
-            for (int i = 0; i < a->T; i++)
+            for (int i = 0; i < TAM[INDEX]; i++)
             {
-                ordenada = a->F[i][a->N];
-                for (int j = i; j < a->T; j++)
+                ordenada = a->F[i][INDEX];
+                for (int j = i; j < TAM[INDEX]; j++)
                 {
-                    if (a->F[j][a->N] < ordenada)
+                    if (a->F[j][INDEX] < ordenada)
                     {
-                        ordenada = a->F[j][a->N];
-                        a->F[j][a->N] = a->F[i][a->N];
-                        a->F[i][a->N] = ordenada;
+                        ordenada = a->F[j][INDEX];
+                        a->F[j][INDEX] = a->F[i][INDEX];
+                        a->F[i][INDEX] = ordenada;
                     }
                 }
             }
@@ -330,58 +389,58 @@ void ordenarArreglo (Arreglo *a)
     }
     else
     {
-        if (a->tipo == 'c')
+        if (TIPO == 'c')
         {
             char ordenada;
 
-            for (int i = 1; i < a->T; i++)
+            for (int i = 1; i < TAM[INDEX]; i++)
             {
-                ordenada = a->C[i][a->N];
+                ordenada = a->C[i][INDEX];
                 int j = i - 1;
 
-                while (j >= 0 && a->C[j][a->N] > ordenada)
+                while (j >= 0 && a->C[j][INDEX] > ordenada)
                 {
-                    a->C[j + 1][a->N] = a->C[j][a->N];
+                    a->C[j + 1][INDEX] = a->C[j][INDEX];
                     j--;
                 }
 
-                a->C[j + 1][a->N] = ordenada;
+                a->C[j + 1][INDEX] = ordenada;
             }
         }
-        else if (a->tipo == 'i')
+        else if (TIPO == 'i')
         {
             int ordenada;
 
-            for (int i = 1; i < a->T; i++)
+            for (int i = 1; i < TAM[INDEX]; i++)
             {
-                ordenada = a->V[i][a->N];
+                ordenada = a->V[i][INDEX];
                 int j = i - 1;
 
-                while (j >= 0 && a->V[j][a->N] > ordenada)
+                while (j >= 0 && a->V[j][INDEX] > ordenada)
                 {
-                    a->V[j + 1][a->N] = a->V[j][a->N];
+                    a->V[j + 1][INDEX] = a->V[j][INDEX];
                     j--;
                 }
 
-                a->V[j + 1][a->N] = ordenada;
+                a->V[j + 1][INDEX] = ordenada;
             }
         }
         else
         {
             float ordenada;
 
-            for (int i = 1; i < a->T; i++)
+            for (int i = 1; i < TAM[INDEX]; i++)
             {
-                ordenada = a->F[i][a->N];
+                ordenada = a->F[i][INDEX];
                 int j = i - 1;
 
-                while (j >= 0 && a->F[j][a->N] > ordenada)
+                while (j >= 0 && a->F[j][INDEX] > ordenada)
                 {
-                    a->F[j + 1][a->N] = a->F[j][a->N];
+                    a->F[j + 1][INDEX] = a->F[j][INDEX];
                     j--;
                 }
 
-                a->F[j + 1][a->N] = ordenada;
+                a->F[j + 1][INDEX] = ordenada;
             }
         }
     }
@@ -392,64 +451,56 @@ void insertarArreglo(Arreglo *a)
 {
     int ins = 0, t = 0;
 
-    if (a->tipo == 'c')
+    if (TIPO == 'c')
     {
-        char temp;
-
         printf("Cuantos elementos desea agregar al arreglo? ");
         scanf("%d", &ins);
 
-        t = a->T;
-        a->T += ins;
+        t = TAM[INDEX];
+        TAM[INDEX] += ins;
 
-        a->C =(char **)realloc(a->C, ((a->T*a->N)+ 1)*sizeof(char));
+        reasignMem(a);
 
-        for (int i = t; i < a->T; i++)
+        for (int i = t; i < TAM[INDEX]; i++)
         {
             printf("Ingrese un elemento para insertar al arreglo: ");
             fflush(stdin);
-            scanf("%c", &temp);
-            a->C[i][a->N] = temp;
+            scanf("%c", &(a->C[i][INDEX]));
+
         }
-        a->C[a->T][a->N] = '\0';
+        a->C[TAM[INDEX]][INDEX] = '\0';
 
     }
-    else if (a->tipo == 'i')
+    else if (TIPO == 'i')
     {
-        int temp = 0;
-
         printf("Cuantos elementos desea agregar al arreglo? ");
         scanf("%d", &ins);
 
-        t = a->T;
-        a->T += ins;
+        t = TAM[INDEX];
+        TAM[INDEX] += ins;
 
-        a->V =(int **)realloc(a->V, (a->T*a->N)*sizeof(int));
+        reasignMem(a);
 
-        for (int i = t; i < a->T; i++)
+        for (int i = t; i < TAM[INDEX]; i++)
         {
             printf("Ingrese un elemento para insertar al arreglo: ");
-            scanf("%d", &temp);
-            a->V[i][a->N] = temp;
+            scanf("%d", &(a->V[i][INDEX]));
         }
     }
     else
     {
-        float temp = 0;
-
         printf("Cuantos elementos desea agregar al arreglo? ");
         scanf("%d", &ins);
 
-        t = a->T;
-        a->T += ins;
+        t = TAM[INDEX];
+        TAM[INDEX] += ins;
 
-        a->F =(int **)realloc(a->F, (a->T*a->N)*sizeof(int));
+        reasignMem(a);
 
-        for (int i = t; i < a->T; i++)
+        for (int i = t; i < TAM[INDEX]; i++)
         {
             printf("Ingrese un elemento para insertar al arreglo: ");
-            scanf("%f", &temp);
-            a->F[i][a->N] = temp;
+            scanf("%f", &(a->F[i][INDEX]));
         }
     }
 
@@ -459,31 +510,31 @@ void insertarArreglo(Arreglo *a)
 
 void buscarMayorArreglo(Arreglo *a)
 {
-    if (a->tipo == 'c')
+    if (TIPO == 'c')
     {
         char mayor;
-        mayor = a->C[0][a->N];
+        mayor = a->C[0][INDEX];
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            if (a->C[i][a->N] > mayor)
+            if (a->C[i][INDEX] > mayor)
             {
-                mayor = a->C[i][a->N];
+                mayor = a->C[i][INDEX];
             }
         }
 
         printf("El mayor elemento del arreglo es: %c\n", mayor);
     }
-    else if (a->tipo == 'i')
+    else if (TIPO == 'i')
     {
         int mayor;
-        mayor = a->V[0][a->N];
+        mayor = a->V[0][INDEX];
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            if (a->V[i][a->N] > mayor)
+            if (a->V[i][INDEX] > mayor)
             {
-                mayor = a->V[i][a->N];
+                mayor = a->V[i][INDEX];
             }
         }
 
@@ -492,13 +543,13 @@ void buscarMayorArreglo(Arreglo *a)
     else
     {
         float mayor;
-        mayor = a->F[0][a->N];
+        mayor = a->F[0][INDEX];
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            if (a->F[i][a->N] > mayor)
+            if (a->F[i][INDEX] > mayor)
             {
-                mayor = a->F[i][a->N];
+                mayor = a->F[i][INDEX];
             }
         }
 
@@ -508,13 +559,13 @@ void buscarMayorArreglo(Arreglo *a)
 
 void esCapicua(Arreglo *a)
 {
-    if (a->tipo == 'c')
+    if (TIPO == 'c')
     {
         int flag = 0;
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            if (a->C[i][a->N] != a->C[a->T - (i + 1)][a->N])
+            if (a->C[i][INDEX] != a->C[TAM[INDEX] - (i + 1)][INDEX])
             {
                 flag = 1;
             }
@@ -529,13 +580,13 @@ void esCapicua(Arreglo *a)
             printf("\nEl arreglo no es capicúa.\n");
         }
     }
-    else if (a->tipo == 'i')
+    else if (TIPO == 'i')
     {
         int flag = 0;
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            if (a->V[i][a->N] != a->V[a->T - (i + 1)][a->N])
+            if (a->V[i][INDEX] != a->V[TAM[INDEX] - (i + 1)][INDEX])
             {
                 flag = 1;
             }
@@ -554,9 +605,9 @@ void esCapicua(Arreglo *a)
     {
         int flag = 0;
 
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            if (a->F[i][a->N] != a->F[a->T - (i + 1)][a->N])
+            if (a->F[i][INDEX] != a->F[TAM[INDEX] - (i + 1)][INDEX])
             {
                 flag = 1;
             }
@@ -575,37 +626,37 @@ void esCapicua(Arreglo *a)
 
 void invertirArreglo(Arreglo *a)
 {
-    if (a->tipo == 'c')
+    if (TIPO == 'c')
     {
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            a->C[i][a->N] = a->C[i][a->N] + a->C[a->T - (i+1)][a->N];
+            a->C[i][INDEX] = a->C[i][INDEX] + a->C[TAM[INDEX] - (i+1)][INDEX];
 
-            a->C[a->T - (i+1)][a->N] = a->C[i][a->N] - a->C[a->T - (i+1)][a->N];
+            a->C[TAM[INDEX] - (i+1)][INDEX] = a->C[i][INDEX] - a->C[TAM[INDEX] - (i+1)][INDEX];
 
-            a->C[i][a->N] = a->C[i][a->N] - a->C[a->T - (i+1)][a->N];
+            a->C[i][INDEX] = a->C[i][INDEX] - a->C[TAM[INDEX] - (i+1)][INDEX];
         }
     }
-    else if (a->tipo == 'i')
+    else if (TIPO == 'i')
     {
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            a->V[i][a->N] = a->V[i][a->N] + a->V[a->T - (i+1)][a->N];
+            a->V[i][INDEX] = a->V[i][INDEX] + a->V[TAM[INDEX] - (i+1)][INDEX];
 
-            a->V[a->T - (i+1)][a->N] = a->V[i][a->N] - a->V[a->T - (i+1)][a->N];
+            a->V[TAM[INDEX] - (i+1)][INDEX] = a->V[i][INDEX] - a->V[TAM[INDEX] - (i+1)][INDEX];
 
-            a->V[i][a->N] = a->V[i][a->N] - a->V[a->T - (i+1)][a->N];
+            a->V[i][INDEX] = a->V[i][INDEX] - a->V[TAM[INDEX] - (i+1)][INDEX];
         }
     }
     else
     {
-        for (int i = 0; i < a->T; i++)
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            a->F[i][a->N] = a->F[i][a->N] + a->F[a->T - (i+1)][a->N];
+            a->F[i][INDEX] = a->F[i][INDEX] + a->F[TAM[INDEX] - (i+1)][INDEX];
 
-            a->F[a->T - (i+1)][a->N] = a->F[i][a->N] - a->F[a->T - (i+1)][a->N];
+            a->F[TAM[INDEX] - (i+1)][INDEX] = a->F[i][INDEX] - a->F[TAM[INDEX] - (i+1)][INDEX];
 
-            a->F[i][a->N] = a->F[i][a->N] - a->F[a->T - (i+1)][a->N];
+            a->F[i][INDEX] = a->F[i][INDEX] - a->F[TAM[INDEX] - (i+1)][INDEX];
         }
     }
 }
