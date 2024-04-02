@@ -14,21 +14,21 @@ int main()
 
     do
     {
-
-        queArreglo(&arreglo);
+        selecArreglo(&arreglo);
 
         do
         {
             system("cls");
             printf("Trabajo Practico de Funciones con Arreglos.\n\n");
             printf("Seleccione el ejercicio que desea visualizar: \n\n");
-            printf("1. Crear un Arreglo.\n");
+            printf("0. Salir.\n");
+            printf("1. Cargar el Arreglo.\n");
             printf("2. Mostrar el Arreglo.\n");
             printf("3. Sumar el Arreglo.\n");
             printf("4. Copiar Arreglo a Pila.\n");
             printf("5. Sumar Arreglo de float random.\n");
             printf("6. Buscar elemento en el arreglo. \n");
-            printf("7. Agregar un elemento y ordenar Arreglo.\n");
+            printf("7. Agregar un elemento.\n");
             printf("8. Buscar el mayor elemento.\n");
             printf("9. Determinar si el arreglo es capicúa \n");
             printf("10. Invertir el arreglo\n");
@@ -42,11 +42,19 @@ int main()
 
             switch(r)
             {
+                case 0:
+                {
+                    q = 'q';
+
+                    break;
+                }
                 case 1:
                 {
-                    printf("1. Cargar un Arreglo.\n\n");
+                    printf("1. Cargar el Arreglo.\n\n");
 
                     cargarArreglo(&arreglo);
+
+                    salir(&q);
 
                     break;
                 }
@@ -56,6 +64,8 @@ int main()
 
                     mostrarArreglo(&arreglo);
 
+                    salir(&q);
+
                     break;
                 }
                 case 3:
@@ -63,6 +73,8 @@ int main()
                     printf("3. Sumar el Arreglo.\n\n");
 
                     sumarArreglo(&arreglo);
+
+                    salir(&q);
 
                     break;
                 }
@@ -75,6 +87,8 @@ int main()
 
                     arregloAPila(&arreglo, &pilita);
 
+                    salir(&q);
+
                     break;
                 }
                 case 5:
@@ -82,6 +96,8 @@ int main()
                     printf("5. Sumar Arreglo de float random.\n\n");
 
                     sumarArreglo(&arreglo);
+
+                    salir(&q);
 
                     break;
                 }
@@ -91,14 +107,17 @@ int main()
 
                     buscar(&arreglo);
 
+                    salir(&q);
+
                     break;
                 }
                 case 7:
                 {
                     printf("7. Agregar un elemento.\n\n");
 
-                    ordenarArreglo(&arreglo);
                     insertarArreglo(&arreglo);
+
+                    salir(&q);
 
                     break;
                 }
@@ -108,6 +127,8 @@ int main()
 
                     buscarMayorArreglo(&arreglo);
 
+                    salir(&q);
+
                     break;
                 }
                 case 9:
@@ -115,6 +136,8 @@ int main()
                     printf("9. Determinar si el Arreglo es capicúa \n\n");
 
                     esCapicua(&arreglo);
+
+                    salir(&q);
 
                     break;
                 }
@@ -124,6 +147,8 @@ int main()
 
                     invertirArreglo(&arreglo);
 
+                    salir(&q);
+
                     break;
                 }
                 case 11:
@@ -131,6 +156,8 @@ int main()
                     printf("11. Ordenar el Arreglo\n\n");
 
                     ordenarArreglo(&arreglo);
+
+                    salir(&q);
 
                     break;
                 }
@@ -149,6 +176,7 @@ int main()
                     while(q != 'q');
 
                     r = 0;
+
                     system("cls");
                     break;
                 }
@@ -160,10 +188,10 @@ int main()
                 }
             }
 
-            salir(&q);
+        }while(q != 'q');
 
-        } while(q != 'q');
-    } while (q == 'q');
+    } while(q == 'q');
+
 
 
     return 0;
