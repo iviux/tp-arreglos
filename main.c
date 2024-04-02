@@ -14,6 +14,9 @@ int main()
 
     do
     {
+        system("cls");
+        printf("Ingrese el numero de arreglo que desea editar: \n");
+
         selecArreglo(&arreglo);
 
         do
@@ -21,20 +24,20 @@ int main()
             system("cls");
             printf("Trabajo Practico de Funciones con Arreglos.\n\n");
             printf("Seleccione el ejercicio que desea visualizar: \n\n");
-            printf("0. Salir.\n");
-            printf("1. Cargar el Arreglo.\n");
-            printf("2. Mostrar el Arreglo.\n");
-            printf("3. Sumar el Arreglo.\n");
-            printf("4. Copiar Arreglo a Pila.\n");
-            printf("5. Sumar Arreglo de float random.\n");
-            printf("6. Buscar elemento en el arreglo. \n");
-            printf("7. Agregar un elemento.\n");
-            printf("8. Buscar el mayor elemento.\n");
-            printf("9. Determinar si el arreglo es capicúa \n");
-            printf("10. Invertir el arreglo\n");
-            printf("11. Ordenar el Arreglo\n");
-            printf("12. Dados dos arreglos ordenados alfabéticamente, crear un tercer arreglo con los elementos de los dos primeros intercalados, de manera que quede un arreglo también ordenado alfabéticamente. \n");
-            printf("13. Dado el vector {1,5,6,7,8} escribir un programa que genere otro vector con la suma del contenido de todo los elementos anteriores al índice actual: {1,6,12,19,27}.\n");
+            printf("  0) Seleccionar Arreglo.\n");
+            printf("  1) Cargar el Arreglo.\n");
+            printf("  2) Mostrar el Arreglo.\n");
+            printf("  3) Sumar el Arreglo.\n");
+            printf("  4) Copiar Arreglo a Pila.\n");
+            printf("  5) Sumar Arreglo de float random.\n");
+            printf("  6) Buscar elemento en el arreglo. \n");
+            printf("  7) Agregar un elemento.\n");
+            printf("  8) Buscar el mayor elemento.\n");
+            printf("  9) Determinar si el arreglo es capicúa \n");
+            printf(" 10) Invertir el arreglo\n");
+            printf(" 11) Ordenar el Arreglo\n");
+            printf(" 12) Combinar Arreglos. \n");
+            printf(" 13) Dado el vector {1,5,6,7,8} escribir un programa que genere otro vector con la suma del contenido de todo los elementos anteriores al índice actual: {1,6,12,19,27}.\n");
 
             fflush(stdin);
             scanf("%d", &r);
@@ -50,7 +53,7 @@ int main()
                 }
                 case 1:
                 {
-                    printf("1. Cargar el Arreglo.\n\n");
+                    printf("1) Cargar el Arreglo.\n\n");
 
                     cargarArreglo(&arreglo);
 
@@ -60,7 +63,7 @@ int main()
                 }
                 case 2:
                 {
-                    printf("2. Mostrar el Arreglo.\n\n");
+                    printf("2) Mostrar el Arreglo.\n\n");
 
                     mostrarArreglo(&arreglo);
 
@@ -70,7 +73,7 @@ int main()
                 }
                 case 3:
                 {
-                    printf("3. Sumar el Arreglo.\n\n");
+                    printf("3) Sumar el Arreglo.\n\n");
 
                     sumarArreglo(&arreglo);
 
@@ -80,7 +83,7 @@ int main()
                 }
                 case 4:
                 {
-                    printf("4. Copiar Arreglo a Pila.\n\n");
+                    printf("4) Copiar Arreglo a Pila.\n\n");
 
                     Pila pilita;
                     inicpila(&pilita);
@@ -93,7 +96,7 @@ int main()
                 }
                 case 5:
                 {
-                    printf("5. Sumar Arreglo de float random.\n\n");
+                    printf("5) Sumar Arreglo de float random.\n\n");
 
                     sumarArreglo(&arreglo);
 
@@ -103,7 +106,7 @@ int main()
                 }
                 case 6:
                 {
-                    printf("6. Buscar elemento en el arreglo. \n\n");
+                    printf("6) Buscar elemento en el arreglo. \n\n");
 
                     buscar(&arreglo);
 
@@ -113,7 +116,7 @@ int main()
                 }
                 case 7:
                 {
-                    printf("7. Agregar un elemento.\n\n");
+                    printf("7) Agregar un elemento.\n\n");
 
                     insertarArreglo(&arreglo);
 
@@ -123,7 +126,7 @@ int main()
                 }
                 case 8:
                 {
-                    printf("8. Buscar el mayor elemento.\n\n");
+                    printf("8) Buscar el mayor elemento.\n\n");
 
                     buscarMayorArreglo(&arreglo);
 
@@ -133,7 +136,7 @@ int main()
                 }
                 case 9:
                 {
-                    printf("9. Determinar si el Arreglo es capicúa \n\n");
+                    printf("9) Determinar si el Arreglo es capicúa \n\n");
 
                     esCapicua(&arreglo);
 
@@ -143,7 +146,7 @@ int main()
                 }
                 case 10:
                 {
-                    printf("10. Invertir el Arreglo\n\n");
+                    printf("10) Invertir el Arreglo\n\n");
 
                     invertirArreglo(&arreglo);
 
@@ -153,7 +156,7 @@ int main()
                 }
                 case 11:
                 {
-                    printf("11. Ordenar el Arreglo\n\n");
+                    printf("11) Ordenar el Arreglo\n\n");
 
                     ordenarArreglo(&arreglo);
 
@@ -163,6 +166,10 @@ int main()
                 }
                 case 12:
                 {
+                    printf(" 12) Combinar Arreglos. \n\n");
+
+                    combinarArreglos(&arreglo);
+                    printf("tamindex %d", arreglo.T[arreglo.N]);
 
                     break;
                 }

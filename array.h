@@ -33,3 +33,4 @@ void ordenarArreglo (Arreglo *a);
 void buscarMayorArreglo(Arreglo *a);
 void esCapicua(Arreglo *a);
 void invertirArreglo(Arreglo *a);
+void combinarArreglos(Arreglo *a);

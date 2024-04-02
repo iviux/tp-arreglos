@@ -22,19 +22,20 @@
 	<locale.h>
 	"array.h"
 
-1711753839 source:d:\programacion\c\tp-arreglos\array.c
+1712093415 source:d:\programacion\c\tp-arreglos\array.c
 	"array.h"
 
-1711810863 d:\programacion\c\tp-arreglos\array.h
+1712091285 d:\programacion\c\tp-arreglos\array.h
 	<stdio.h>
 	<stdlib.h>
+	<malloc.h>
 	"pila.h"
 
 1711591749 d:\programacion\c\tp-arreglos\pila.h
 	<stdio.h>
 	<malloc.h>
 
-1711809996 source:d:\programacion\c\tp-arreglos\main.c
+1712091548 source:d:\programacion\c\tp-arreglos\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
