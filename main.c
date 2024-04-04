@@ -169,7 +169,9 @@ int main()
                     printf(" 12) Combinar Arreglos. \n\n");
 
                     combinarArreglos(&arreglo);
-                    printf("tamindex %d", arreglo.T[arreglo.N]);
+                    mostrarArreglo(&arreglo);
+
+                    salir(&q);
 
                     break;
                 }

@@ -49,34 +49,34 @@ void nuevoArreglo(Arreglo *a)
         a->F =(float **) malloc(10*sizeof(float*));
     }
 
+    INDMAX = 0;
+
 }
 
 void selecArreglo(Arreglo *a)
 {
-    static int n = 0;
-
     // Crear un arreglo o seleccionar un arreglo existente.
     // Control para que solo se pueda ingresar a arreglos existentes o crear el arreglo consecutivo al ultimo creado
 
     do
     {
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < INDMAX; i++)
         {
             INDEX = i;
             mostrarArreglo(a);
         }
 
         scanf("%d", &INDEX);
-
     }
-    while (INDEX > n + 1 || INDEX < 0);
+    while (INDEX > INDMAX + 1 || INDEX <= 0);
 
     INDEX = INDEX -1;
 
     // Si el numero del arreglo es igual al indice de arreglos existentes, incremento el indice creando uno nuevo
-    if (INDEX == n)
+    if (INDEX == INDMAX)
     {
-        n++;
+        INDMAX++;
+        cargarArreglo(a);
     }
 
 }
@@ -658,7 +658,7 @@ void invertirArreglo(Arreglo *a)
 void combinarArreglos(Arreglo *a)
 {
     int index[2], tamtotal = 0;
-
+    system("cls");
     printf("Elija el primer arreglo a combinar: ");
 
     selecArreglo(a);
@@ -675,21 +675,30 @@ void combinarArreglos(Arreglo *a)
     system("cls");
     printf("Elija un arreglo de destino: ");
 
-    selecArreglo(a);
+    INDEX ++;
+    INDMAX ++;
     TAM[INDEX] = tamtotal;
 
+    system("cls");
 
     if (TIPO == 'c')
     {
-        a->C[INDEX] = (char *) malloc((TAM[INDEX]+1)*sizeof(char));
+        a->C[INDEX] = (char *) malloc((TAM[INDEX])*sizeof(char));
 
-        for (int i = 0; i < TAM[index[0]]; i++)
+        int j = 0;
+
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            a->C[INDEX][i] = a->C[index[0]][i];
-        }
-        for (int i = 0; i < TAM[index[1]]; i++)
-        {
-            a->C[INDEX][TAM[index[0] + i]] = a->C[index[1]][i];
+            if (i < TAM[index[0]])
+            {
+               a->C[INDEX][j] = a->C[index[0]][i];
+               j++;
+            }
+            if (i < TAM[index[1]])
+            {
+              a->C[INDEX][j] = a->C[index[1]][i];
+              j++;
+            }
         }
 
         a->C[INDEX][TAM[INDEX]] = '\0';
@@ -698,30 +707,42 @@ void combinarArreglos(Arreglo *a)
     {
         a->V[INDEX] = (int *) malloc(TAM[INDEX]*sizeof(int));
 
-        for (int i = 0; i < TAM[index[0]]; i++)
+        int j = 0;
+
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            a->V[INDEX][i] = a->V[index[0]][i];
-            printf("%d, %d", a->V[INDEX][i], a->V[index[0]][i]);
-        }
-        for (int i = 0; i < TAM[index[1]]; i++)
-        {
-            a->V[INDEX][TAM[index[0] + i]] = a->V[index[1]][i];
-            printf("%d, %d", a->V[INDEX][TAM[index[0] + i]], a->V[index[1]][i]);
+            if (i < TAM[index[0]])
+            {
+               a->V[INDEX][j] = a->V[index[0]][i];
+               j++;
+            }
+            if (i < TAM[index[1]])
+            {
+              a->V[INDEX][j] = a->V[index[1]][i];
+              j++;
+            }
         }
     }
     else if (TIPO == 'f')
     {
         a->F[INDEX] = (float *) malloc(TAM[INDEX]*sizeof(float));
 
-        for (int i = 0; i < TAM[index[0]]; i++)
+        int j = 0;
+
+        for (int i = 0; i < TAM[INDEX]; i++)
         {
-            a->F[INDEX][i] = a->F[index[0]][i];
-        }
-        for (int i = 0; i < TAM[index[1]]; i++)
-        {
-            a->F[INDEX][TAM[index[0] + i]] = a->F[index[1]][i];
+            if (i < TAM[index[0]])
+            {
+               a->F[INDEX][j] = a->F[index[0]][i];
+               j++;
+            }
+            if (i < TAM[index[1]])
+            {
+              a->F[INDEX][j] = a->F[index[1]][i];
+              j++;
+            }
         }
     }
 
-//    ordenarArreglo(a);
+    ordenarArreglo(a);
 }

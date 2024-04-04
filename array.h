@@ -3,6 +3,7 @@
 #include <malloc.h>
 #define Arreglo struct _Arreglo
 #define INDEX a->N
+#define INDMAX a->MAX
 #define TIPO a->tipo
 #define TAM a->T
 #include "pila.h"
@@ -12,6 +13,7 @@ struct _Arreglo
 {
     char tipo;
     int N;
+    int MAX;
     int *T;
     char **C;
     int **V;
@@ -24,7 +26,6 @@ int tam();
 void selecArreglo(Arreglo *a);
 void cargarArreglo(Arreglo *a);
 void mostrarArreglo(Arreglo *a);
-void mostrarArreglos(Arreglo *a);
 void sumarArreglo(Arreglo *a);
 void arregloAPila(Arreglo *a, Pila *p);
 void buscar(Arreglo *a);
