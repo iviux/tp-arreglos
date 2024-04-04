@@ -749,11 +749,13 @@ void combinarArreglos(Arreglo *a)
 
 void sumarAnteriores(Arreglo *a)
 {
+    INDEX++;
     INDMAX++;
+    TAM[INDEX] = TAM[INDEX-1];
 
     if (TIPO == 'i')
     {
-        a->V[INDEX+1] = (int *) malloc(TAM[INDEX]*sizeof(int));
+        a->V[INDEX] = (int *) malloc(TAM[INDEX]*sizeof(int));
 
         int suma = 0;
 
@@ -763,18 +765,20 @@ void sumarAnteriores(Arreglo *a)
 
             for (int j = 0; j <= i; j++)
             {
-                suma += a->V[INDEX][j];
+                suma += a->V[INDEX - 1][j];
             }
 
-            a->V[INDEX +1][i] = suma;
+            a->V[INDEX][i] = suma;
 
 
         }
 
-        INDEX++;
+        mostrarArreglo(a);
     }
     else if (TIPO == 'f' || TIPO == 'r')
     {
+        a->F[INDEX] = (int *) malloc(TAM[INDEX]*sizeof(int));
+
         float suma = 0;
 
         for (int i = 0; i < TAM[INDEX]; i++)
@@ -783,12 +787,14 @@ void sumarAnteriores(Arreglo *a)
 
             for (int j = 0; j <= i; j++)
             {
-                suma += a->F[INDEX][j];
+                suma += a->F[INDEX - 1][j];
             }
 
-            a->F[INDEX +1][i] = suma;
+            a->F[INDEX][i] = suma;
+
+
         }
 
-        INDEX++;
+        mostrarArreglo(a);
     }
 }
