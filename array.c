@@ -746,3 +746,49 @@ void combinarArreglos(Arreglo *a)
 
     ordenarArreglo(a);
 }
+
+void sumarAnteriores(Arreglo *a)
+{
+    INDMAX++;
+
+    if (TIPO == 'i')
+    {
+        a->V[INDEX+1] = (int *) malloc(TAM[INDEX]*sizeof(int));
+
+        int suma = 0;
+
+        for (int i = 0; i < TAM[INDEX]; i++)
+        {
+            suma = 0;
+
+            for (int j = 0; j <= i; j++)
+            {
+                suma += a->V[INDEX][j];
+            }
+
+            a->V[INDEX +1][i] = suma;
+
+
+        }
+
+        INDEX++;
+    }
+    else if (TIPO == 'f' || TIPO == 'r')
+    {
+        float suma = 0;
+
+        for (int i = 0; i < TAM[INDEX]; i++)
+        {
+            suma = 0;
+
+            for (int j = 0; j <= i; j++)
+            {
+                suma += a->F[INDEX][j];
+            }
+
+            a->F[INDEX +1][i] = suma;
+        }
+
+        INDEX++;
+    }
+}

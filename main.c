@@ -33,11 +33,11 @@ int main()
             printf("  6) Buscar elemento en el arreglo. \n");
             printf("  7) Agregar un elemento.\n");
             printf("  8) Buscar el mayor elemento.\n");
-            printf("  9) Determinar si el arreglo es capicúa \n");
-            printf(" 10) Invertir el arreglo\n");
-            printf(" 11) Ordenar el Arreglo\n");
-            printf(" 12) Combinar Arreglos. \n");
-            printf(" 13) Dado el vector {1,5,6,7,8} escribir un programa que genere otro vector con la suma del contenido de todo los elementos anteriores al índice actual: {1,6,12,19,27}.\n");
+            printf("  9) Determinar si el arreglo es capicúa.\n");
+            printf(" 10) Invertir el arreglo.\n");
+            printf(" 11) Ordenar el Arreglo.\n");
+            printf(" 12) Combinar Arreglos.\n");
+            printf(" 13) Sumar elementos anteriores al índice.\n");
 
             fflush(stdin);
             scanf("%d", &r);
@@ -56,6 +56,7 @@ int main()
                     printf("1) Cargar el Arreglo.\n\n");
 
                     cargarArreglo(&arreglo);
+                    mostrarArreglo(&arreglo);
 
                     salir(&q);
 
@@ -119,6 +120,7 @@ int main()
                     printf("7) Agregar un elemento.\n\n");
 
                     insertarArreglo(&arreglo);
+                    mostrarArreglo(&arreglo);
 
                     salir(&q);
 
@@ -149,6 +151,7 @@ int main()
                     printf("10) Invertir el Arreglo\n\n");
 
                     invertirArreglo(&arreglo);
+                    mostrarArreglo(&arreglo);
 
                     salir(&q);
 
@@ -159,6 +162,7 @@ int main()
                     printf("11) Ordenar el Arreglo\n\n");
 
                     ordenarArreglo(&arreglo);
+                    mostrarArreglo(&arreglo);
 
                     salir(&q);
 
@@ -169,7 +173,7 @@ int main()
                     printf(" 12) Combinar Arreglos. \n\n");
 
                     combinarArreglos(&arreglo);
-                    mostrarArreglo(&arreglo);
+                    selecArreglo(&arreglo);
 
                     salir(&q);
 
@@ -177,23 +181,19 @@ int main()
                 }
                 case 13:
                 {
-                    do
-                    {
 
-                        salir(&q);
-                    }
-                    while(q != 'q');
+                    printf(" 13) Sumar elementos anteriores al índice.\n");
 
-                    r = 0;
+                    sumarAnteriores(&arreglo);
 
-                    system("cls");
+                    salir(&q);
+
                     break;
                 }
 
                 default:
                 {
-                    printf("El numero de ejercicio es inexistente.\n\n");
-                    r = 0;
+
                 }
             }
 
